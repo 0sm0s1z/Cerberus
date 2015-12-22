@@ -10,6 +10,7 @@
    position: relative;
    background-color: #000;
    float: left;
+   top: 10px;
    width: 100%;
    margin: auto;
 }

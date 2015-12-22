@@ -1,17 +1,98 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>JSON-RPC Demo for JQuery Terminal Emulator</title>
-    <meta name="author" content="Jakub Jankiewicz - jcubic@onet.pl">
-    <meta name="Description" content="Demonstration for JQuery Terminal Emulator using call automaticly JSON-RPC service (in php) with authentication.">
+    <title>Cerberus C2</title>
+    <meta name="author" content="Matthew Toussain">
+    <meta name="Description" content="A framework for modular C2.">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="">
     <link rel="shortcut icon" href="favicon.ico">
     <script src="gui/js/jquery-1.7.1.min.js"></script>
     <script src="gui/js/jquery.mousewheel-min.js"></script>
     <script src="gui/js/jquery.terminal-min.js"></script>
     <link href="gui/css/jquery.terminal.css" rel="stylesheet">
+    <link href="gui/css/style.css" rel="stylesheet">
+    <link rel='stylesheet' href='gui/css/fonts.css' type='text/css'/>
   </head>
-<body class="terminal">
+
+
+<body>
+
+<!-- Navigation Pane --> 
+<div id = "topnav">
+   <div id = "nav_cont">
+      <div id = "logo"><a href = "/"><img height = "50" src = "gui/images/favicon.png"></a></div>
+         <div id = "navbar_cont">
+            <a href = "/" class = "navbar">Dashboard</a>
+            <a href = "/configure/" class = "navbar">Defense Console</a>
+            <a href = "/sensors/" class = "navbar">Sensors</a>
+            <a href = "/agents/" class = "navbar">Agents</a>
+            <a href = "/appstore/" class = "navbar">Appstore</a>
+         </div>
+         <div id = "panel_menu">
+            <a href="#" class = "panel_icons"><span class='icon-remove'></span></a>&nbsp;&nbsp;&nbsp;
+            <a href="/configure/" class = "panel_icons"><span class='icon-shield'></span></a>&nbsp;&nbsp;&nbsp;
+            <a href="#" class = "panel_icons"><span class='icon-share'></span></a>&nbsp;&nbsp;&nbsp;
+            <a href = "/configure/" class = "panel_icons"><span class='icon-cog'></span></a>&nbsp;&nbsp;&nbsp;
+         </div>
+   </div>
+   <!--
+   <div id = "navbar">
+      <div id = "navbar_cont">
+         <a href = "/" class = "navbar">Dashboard</a>
+         <a href = "/configure/" class = "navbar">Alerts</a>
+         <a href = "/agents/" class = "navbar">Agents</a>
+         <a href = "/appstore/" class = "navbar">Appstore</a>
+      </div>
+   </div>
+   -->
+</div>
+
+
+<div id = "maincont">
+<div id = "dashboardcont">
+   
+   <!-- LEFT PANE -->
+   
+   <div id = "grid50">
+      <div id = "main_widget">
+         <div id = "widgetbar"><div id = "widget_header">Internet Threat Level</div></div>
+         <div id = "widgetcont">
+            <a href="http://isc.sans.edu"><img alt="Internet Storm Center Infocon Status" src="http://isc.sans.edu/images/status.gif"></a>
+         </div>
+      </div>
+   </div>
+   
+   
+   <!-- RIGHT PANE -->
+   <div id = "grid50">
+      <div id = "main_widget">
+         <div id = "widgetbar"><div id = "widget_header">Agent Statistics</div></div>
+         <div id = "widgetcont">
+
+         </div>
+      </div>
+   </div>
+
+   <!-- Agent Table -->
+   
+   <div id = "grid100" style = "float: left">
+      <div id = "main_widget">
+         <div id = "widgetbar"><div id = "widget_header">Agents</div></div>
+         <div id = "widgetcont">
+
+         </div>
+      </div>
+   </div>
+
+</div>
+</div>
+<div style = "margin-bottom:40px"></div>
+
+
+
+
+
+
 
 <script>
 jQuery(document).ready(function($) {
@@ -78,8 +159,8 @@ you are allowed to execute: select, insert, update and delete from/to table:\n\
             postCommand(command);
         }
     }, {
-        greetings: "Ravenclaw Javascript Terminal",
-	prompt: "ravenclaw> ",
+        greetings: "Cerberus Command Center",
+	prompt: "cerberus> ",
         onBlur: function() {
             // prevent loosing focus
             return false;
@@ -90,9 +171,6 @@ you are allowed to execute: select, insert, update and delete from/to table:\n\
 </script>
 
 <script>
-
-
-
 function postCommand(command)
 {
 //Get target details from cookie and submit to hostCtrl
@@ -118,7 +196,7 @@ var pLoadRate = "1000";
 var auto_refresh = setInterval(
 function ()
 {
-$('#CheckIn').load('jsUpdater.php').fadeIn("slow");
+$('#CheckIn').load('termUpdater.htm').fadeIn("slow");
 
 }, pLoadRate);
 
@@ -132,7 +210,7 @@ var pLoadRate = "1000";
 var auto_refresh = setInterval(
 function ()
 {
-$('#CheckIn').load('jsUpdater.php').fadeIn("slow");
+$('#CheckIn').load('termUpdater.htm').fadeIn("slow");
 
 }, pLoadRate);
 
