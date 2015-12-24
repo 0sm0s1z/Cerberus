@@ -2,6 +2,16 @@ body
 {
    background-color: #fff;
 }
+#termcont
+{
+    position: fixed;
+    background-color: #000;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    min-height: 30%;
+}
+
 #topnav
 {
    position: fixed;

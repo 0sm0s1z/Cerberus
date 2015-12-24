@@ -84,18 +84,18 @@ class gui:
 
 class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
    def do_GET(self):
-      logging.warning("============= GET STARTED ==============")
-      logging.warning(self.headers)
+      #logging.warning("============= GET STARTED ==============")
+      #logging.warning(self.headers)
 
       if self.path=='/':
          #This URL will trigger our sample function and send what it returns back to the browser
-         print "main"
          self.send_response(200)
          self.send_header('Content-type','text/html')
          self.end_headers()
          self.wfile.write(gui().index()) #call sample function here
          return
       else:
+         #print self.path
          SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
    def do_POST(self):

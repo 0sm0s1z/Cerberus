@@ -53,9 +53,8 @@
    
    <!-- LEFT PANE -->
    
-   <div id = "grid50">
+   <div id = "grid100">
       <div id = "main_widget">
-         <div id = "widgetbar"><div id = "widget_header">Internet Threat Level</div></div>
          <div id = "widgetcont">
             <a href="http://isc.sans.edu"><img alt="Internet Storm Center Infocon Status" src="http://isc.sans.edu/images/status.gif"></a>
          </div>
@@ -63,7 +62,7 @@
    </div>
    
    
-   <!-- RIGHT PANE -->
+   <!-- RIGHT PANE 
    <div id = "grid50">
       <div id = "main_widget">
          <div id = "widgetbar"><div id = "widget_header">Agent Statistics</div></div>
@@ -73,6 +72,7 @@
       </div>
    </div>
 
+   -->
    <!-- Agent Table -->
    
    <div id = "grid100" style = "float: left">
@@ -87,12 +87,6 @@
 </div>
 </div>
 <div style = "margin-bottom:40px"></div>
-
-
-
-
-
-
 
 <script>
 jQuery(document).ready(function($) {
@@ -196,7 +190,7 @@ var pLoadRate = "1000";
 var auto_refresh = setInterval(
 function ()
 {
-$('#CheckIn').load('termUpdater.htm').fadeIn("slow");
+$('#CheckIn').load('gui/termUpdater.htm').fadeIn("slow");
 
 }, pLoadRate);
 
@@ -210,7 +204,7 @@ var pLoadRate = "1000";
 var auto_refresh = setInterval(
 function ()
 {
-$('#CheckIn').load('termUpdater.htm').fadeIn("slow");
+$('#CheckIn').load('gui/termUpdater.htm').fadeIn("slow");
 
 }, pLoadRate);
 
@@ -222,6 +216,22 @@ $('#CheckIn').load('termUpdater.htm').fadeIn("slow");
 
 <div id = "lastCheck" style = "display: none">1</div>
 
+
+
+<!-- Terminal Setup -->
+<script>
+$( document ).ready(function() {
+  document.getElementById('termcont').appendChild(
+    document.getElementById('termout')
+  );
+  document.getElementById('termcont').appendChild(
+    document.getElementById('cmdprompt')
+  );
+});
+
+</script>
+
+<div id = "termcont"></div>
 
 </body>
 </html>
