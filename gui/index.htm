@@ -20,13 +20,11 @@
 <!-- Navigation Pane --> 
 <div id = "topnav">
    <div id = "nav_cont">
-      <div id = "logo"><a href = "/"><img height = "50" src = "gui/images/favicon.png"></a></div>
+      <div id = "logo"><a href = "/"><img height = "50" width = "50" src = "gui/images/favicon.png"></a></div>
          <div id = "navbar_cont">
-            <a href = "/" class = "navbar">Dashboard</a>
-            <a href = "/configure/" class = "navbar">Defense Console</a>
-            <a href = "/sensors/" class = "navbar">Sensors</a>
-            <a href = "/agents/" class = "navbar">Agents</a>
-            <a href = "/appstore/" class = "navbar">Appstore</a>
+            <div id = "nav_status">
+Welcome to Cerberus. A modular framework for remote command and control.
+            </div>
          </div>
          <div id = "panel_menu">
             <a href="#" class = "panel_icons"><span class='icon-remove'></span></a>&nbsp;&nbsp;&nbsp;
@@ -54,10 +52,17 @@
    <!-- LEFT PANE -->
    
    <div id = "grid100">
-      <div id = "main_widget">
-         <div id = "widgetcont">
-            <a href="http://isc.sans.edu"><img alt="Internet Storm Center Infocon Status" src="http://isc.sans.edu/images/status.gif"></a>
-         </div>
+      <div id = "top_widget">
+
+            <table width = "100%">
+               <tr class = "dash-stats">
+                  <td width = "25%"><span class = "alertbytype">10</span><br>Active</td>
+                  <td width = "25%"><span class = "alertbytype">0</span><br>Online</td>
+                  <td width = "25%"><span class = "alertbytype">5</span><br>Pending</td>
+                  <td width = "25%"><span class = "alertbytype">25</span><br>Deployed</td>
+               </tr>
+            </table>
+
       </div>
    </div>
    
@@ -79,7 +84,68 @@
       <div id = "main_widget">
          <div id = "widgetbar"><div id = "widget_header">Agents</div></div>
          <div id = "widgetcont">
-
+            <table id = "table1" class="widget_list">
+            <tr class = "widget_bar">
+            <td>Host</td>
+            <td>Context</td>
+            <td>Description</td>
+            <td>Status</td>
+            </tr>
+                    <tr class = "widgetrowa">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowb">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowa">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowb">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowa">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowb">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowa">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowb">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+                    <tr class = "widgetrowa">
+                        <td width = "30%">{{ profile.alias }}</td>
+                        <td width = "30%">{{ profile.host }}</td>
+                        <td width = "30%">{{ profile.system }}</td>
+                        <td width = "10%">Online</td>
+                    </tr>
+            </table>
          </div>
       </div>
    </div>
