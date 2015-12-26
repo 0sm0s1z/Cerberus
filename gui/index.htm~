@@ -22,7 +22,9 @@
    <div id = "nav_cont">
       <div id = "logo"><a href = "/"><img height = "50" width = "50" src = "gui/images/favicon.png"></a></div>
          <div id = "navbar_cont">
+            <div id = "nav_status">
 Welcome to Cerberus. A modular framework for remote command and control.
+            </div>
          </div>
          <div id = "panel_menu">
             <a href="#" class = "panel_icons"><span class='icon-remove'></span></a>&nbsp;&nbsp;&nbsp;
@@ -89,6 +91,7 @@ Welcome to Cerberus. A modular framework for remote command and control.
             <td>Description</td>
             <td>Status</td>
             </tr>
+            {{{hosts_table}}}
                     <tr class = "widgetrowa">
                         <td width = "30%">{{ profile.alias }}</td>
                         <td width = "30%">{{ profile.host }}</td>

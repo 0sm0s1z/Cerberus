@@ -60,7 +60,7 @@ body
 	   #nav_status
 	   {
 	      padding: 12px;
-              font-size: 10px;
+              font-size: 12px;
               font-family: consolas;
 	   }
    .navbar
