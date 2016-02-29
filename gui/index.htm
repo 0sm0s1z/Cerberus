@@ -180,7 +180,11 @@ you are allowed to execute: select, insert, update and delete from/to table:\n\
 <script>
 function postCommand(command)
 {
-//Get target details from cookie and submit to hostCtrl
+$.post( "/", { 
+	channel: "1",
+	cmd: command 
+} );
+
 
 }
 
